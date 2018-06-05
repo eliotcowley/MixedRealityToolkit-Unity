@@ -39,6 +39,10 @@ namespace HoloToolkit.Unity
         [Tooltip("Display a small green cube where the target position is.")]
         private bool debugDisplayTargetPosition = false;
 
+        [SerializeField]
+        [Tooltip("Offset of the GameObject from the center of the screen.")]
+        private Vector3 offset;
+
         private Vector3 targetPosition;
         private Vector3 optimalPosition;
         private float initialDistanceToCamera;
@@ -50,7 +54,7 @@ namespace HoloToolkit.Unity
 
         private void Update()
         {
-            optimalPosition = CameraCache.Main.transform.position + CameraCache.Main.transform.forward * initialDistanceToCamera;
+            optimalPosition = CameraCache.Main.transform.position + (CameraCache.Main.transform.forward * initialDistanceToCamera) + offset;
             Vector3 offsetDir = transform.position - optimalPosition;
 
             if (offsetDir.magnitude > SphereRadius)
